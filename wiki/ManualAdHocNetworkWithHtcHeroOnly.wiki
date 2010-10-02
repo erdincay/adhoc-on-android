@@ -17,7 +17,7 @@ Execute the following command lines in adb when you have the phone connected thr
 # <i>chmod 0755 "/system/bin/startstopadhoc"</i><br>
 
 
-You can find the compiled startstopadhoc file and tiwlan.ini file located in this project source code. <b>Note</b> that the startstopadhoc.c is not the one you should copy. It must be compiled! <b>Also remember</b> to modify the SSID to your preferred name in the tiwlan.ini before pushing it to the phone.<br>
+You can find the compiled startstopadhoc file under the downloads section and tiwlan.ini file located in this project source code section under the JNI folder. <b>Note</b> that the startstopadhoc.c is not the one you should copy. It must be compiled! <b>Also remember</b> to modify the SSID to your preferred name in the tiwlan.ini before pushing it to the phone.<br>
 
 Now that you have done the above steps, you can create an ad-hoc network by executing the following command (if you are in the adb shell):<br>
 
