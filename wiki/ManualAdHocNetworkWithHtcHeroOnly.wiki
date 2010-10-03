@@ -21,8 +21,8 @@ You can find the compiled startstopadhoc file under the downloads section and ti
 
 Now that you have done the above steps, you can create an ad-hoc network by executing the following command (if you are in the adb shell):<br>
 
-# <i>startstopadhoc 1 start 192.168.2.YOUR_ID , where YOUR_ID is a number between 0 and 255.</i><br>
+# <i>startstopadhoc 1 start YOUR_STATIC_IP</i><br> where <i>YOUR_STATIC_IP</i> is an ip-address such as "192.168.2.1"
 
 Stop the ad-hoc network by executing<br>
 
-# <i>startstopadhoc 1 stop 192.168.2.YOUR_ID</i><br>
+# <i>startstopadhoc 1 stop YOUR_STATIC_IP</i><br>
