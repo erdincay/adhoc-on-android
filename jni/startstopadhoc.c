@@ -17,12 +17,19 @@ int rmmod(const char *modname) {
 	return syscall(__NR_delete_module, modname, O_NONBLOCK | O_EXCL);
 }
 
-int startwifi(const int* phoneType, const char* ip[]) {
+int startwifi(const int* phoneType, const char *ip[]) {
+
+	//TODO lav print statement til phonetype og &phonetype
+	int res = stopwifi(phoneType);
+	
+	char cmd[60];
 
 	switch (*phoneType) {
 	case 0: //NEXSUS
-		system("insmod /system/lib/modules/bcm4329.ko");
-		system("ifconfig eth0 %s netmask 255.255.255.0", *ip);
+		system("insmod /system/lib/modules/bcm4329.ko");		
+		snprintf(cmd, sizeof cmd, "ifconfig eth0 %s netmask 255.255.255.0", ip);
+		printf("\ncmd: %s\n", cmd);
+		system(cmd);
 		system("ifconfig eth0 up");
 		system("iwconfig eth0 mode ad-hoc");
 		system("iwconfig eth0 essid nexusbac");
@@ -33,8 +40,9 @@ int startwifi(const int* phoneType, const char* ip[]) {
 	case 1: //HERO
 		system("insmod /system/lib/modules/wlan.ko");
 		system("wlan_loader -f /system/etc/wifi/Fw1251r1c.bin -e /proc/calibration -i /data/local/bin/tiwlan.ini");
-		system("ifconfig rmnet0 %s netmask 255.255.255.0", *ip);
-		system("ifconfig rmnet0 up");
+		snprintf(cmd, sizeof cmd, "ifconfig tiwlan0 %s netmask 255.255.255.0", ip);
+		system(cmd);
+		system("ifconfig tiwlan0  up");
 		break;
 
 	default:
@@ -65,21 +73,18 @@ int stopwifi(const int* phoneType) {
 }
 
 int main(int argc, char *argv[]) {
-
-	if (argc != 3 && strcmp(argv[1], "start")) {
-		return -1;
-	} else if (argc !=2 && strcmp(argv[1], "stop"))
-	{
+	printf("\n HELOO \n");
+	if (argc != 4) {
 		return -1;
 	}
 
 	int phoneType = atoi(argv[2]);
-	char *ip[] = argv[3];
-	//printf("phoneType as char: %s \nphoneType as int: %d \nphoneType as address %d",argv[2],phoneType,&phoneType);
-	//printf("ip: %s",ip);
+	char *ip[15];
+
+	strcpy(&ip, argv[3]);
 
 	if (strcmp(argv[1], "start") == 0) {
-		return startwifi(&phoneType, &ip[]);
+		return startwifi(&phoneType, &ip);
 	} else if (strcmp(argv[1], "stop") == 0) {
 		return stopwifi(&phoneType);
 	}
